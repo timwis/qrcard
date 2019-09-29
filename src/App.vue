@@ -2,35 +2,53 @@
   <v-app>
     <v-app-bar app>
       <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
+        <span>QR Card</span>
       </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn
-        text
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
-      </v-btn>
     </v-app-bar>
 
     <v-content>
-      <HelloWorld/>
+      <div
+        v-for="(card, index) in cards"
+        :key="card.created">
+        <EditCard
+          v-if="card.isEditing"
+          v-bind="card.data"
+          @submit="updateCard(index, $event)" />
+        <Card
+          v-else
+          v-bind="card.data"
+          @clickEdit="card.isEditing = true" />
+      </div>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import Card from '@/components/Card'
+import EditCard from '@/components/EditCard'
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld,
+    Card,
+    EditCard
   },
-  data: () => ({
-    //
-  }),
-};
+  data () {
+    return {
+      cards: [
+        {
+          isEditing: false,
+          created: 1569776982921,
+          data: {}
+        }
+      ]
+    }
+  },
+  methods: {
+    updateCard (index, data) {
+      const card = this.cards[index]
+      Object.assign(card.data, data)
+      card.isEditing = false
+    }
+  }
+}
 </script>
