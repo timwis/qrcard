@@ -15,7 +15,7 @@
     "vcards-js": "^2.10.0",
     "vue": "^2.6.10",
     "vue-async-computed": "^3.7.0",
-    "vuetify": "^2.0.0"
+    "vuetify": "^2.6.10"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.11.0",
